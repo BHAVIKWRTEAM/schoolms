@@ -8,6 +8,6 @@ class TeacherController extends Controller
 {
     //
     public function index(){
-        return 1;
-    }
+        return view('dashboard.teacher');
+    }s
 }

@@ -26,9 +26,33 @@ Route::get('/', function () {
 Route::middleware(['auth','role:Admin'])->get('/admin/dashboard',[AdminController::class,'index'])->name('admin.dashboard');
 Route::middleware(['auth','role:Student'])->get('/student/dashboard',[StudentController::class,'index'])->name('student.dashboard');
 Route::middleware(['auth','role:Teacher'])->get('/teacher/dashboard',[TeacherController::class,'index'])->name('teacher.dashboard');
+// auth = user must be logged in
+// role:Admin = user must have that role
+// Routes will be blocked if the user doesn't have that role
 
 
-Route::get('/admin/dashboard',[[AdminController::class,'index']])->middleware('auth')->name('admin.dashboard');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Route::get('/admin/dashboard',[AdminController::class,'index'])->middleware('auth')->name('admin.dashboard');
 
 
 
