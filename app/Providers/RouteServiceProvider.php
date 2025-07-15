@@ -17,7 +17,10 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/dashboard';
+    // public const HOME = '/dashboard';
+    public const HOME = '/redirect-after-login';
+// `  BB: Change the Redirect Target
+// We're going to change that line so Laravel doesn’t just send everyone to /dashboard.`
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.

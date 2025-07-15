@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\LoginRedirectController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,8 @@ Route::middleware(['auth','role:Teacher'])->get('/teacher/dashboard',[TeacherCon
 // auth = user must be logged in
 // role:Admin = user must have that role
 // Routes will be blocked if the user doesn't have that role
+
+Route::get('/redirect-after-login',[LoginRedirectController::class,'redirect'])->middleware('auth')->name('login.redirect');
 
 
 
