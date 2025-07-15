@@ -33,6 +33,9 @@ Route::middleware(['auth','role:Teacher'])->get('/teacher/dashboard',[TeacherCon
 
 Route::get('/redirect-after-login',[LoginRedirectController::class,'redirect'])->middleware('auth')->name('login.redirect');
 
+Route::resource('class-rooms',App\Http\Controllers\ClassRoomController::class);
+Route::resource('students',App\Http\Controllers\StudentController::class);
+
 
 
 
