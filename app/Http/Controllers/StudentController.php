@@ -12,10 +12,25 @@ class StudentController extends Controller
     //bb
     // show all students
 
-    public function index()
+    public function index(Request $request,)
     {
+
+        $query = Student::query();
+        if ($request->filled('search')) {
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                $q->where('first_name', 'like', "%{$search}%")
+                    ->orWhere('last_name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+
+
         // $students = Student::all();
-        $students = Student::with('classRoom')->paginate(4);
+        // $students = Student::with('classRoom')->paginate(4);
+        $students = $query->with('classRoom')->latest()->paginate(3);
         return view('students.index', compact('students'));
     }
 
