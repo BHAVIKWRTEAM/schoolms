@@ -25,13 +25,14 @@ return new class extends Migration
             $table->enum('gender',['Male','Female','Other'])->nullable();
             $table->date('dob')->nullable();
 
-            $table->unsignedBigInteger('class_id'); // fk to classes table bb
+            $table->foreignId('class_id')->constrained('class_rooms')->onDelete('cascade');
+            // $table->unsignedBigInteger('class_id'); // fk to classes table bb
             $table->string('roll_no');
             $table->unique(['class_id', 'roll_no']);
 
             //address
             $table->string('address')->nullable();
-            $table->String('city')->nullable();
+            $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->string('zip_code')->nullable();
 

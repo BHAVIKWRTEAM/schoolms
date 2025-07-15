@@ -21,9 +21,7 @@ class LoginRedirectController extends Controller
         if($user->hasRole('Teacher')){
             return redirect()->route('teacher.dashboard');
         }
-
     }
-
 }
 
 // Auto-Redirect to Correct Dashboard After Login
