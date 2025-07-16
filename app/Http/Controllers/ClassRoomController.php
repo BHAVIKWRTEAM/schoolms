@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Subject;
 use App\Models\ClassRoom;
 use Illuminate\Http\Request;
 
@@ -22,8 +23,8 @@ class ClassRoomController extends Controller
      */
     public function create()
     {
-        //
-        return view('class_rooms.create');
+        $subjects = Subject::all();
+        return view('class_rooms.create',compact('subjects'));
     }
 
     /**
@@ -66,7 +67,9 @@ class ClassRoomController extends Controller
     {
         //
         // $classRoom = ClassRoom::findorfail($id);
-        return view('class_rooms.edit', compact('classRoom'));
+
+        $subjects = Subject::all();
+        return view('class_rooms.edit', compact('classRoom','subjects'));
     }
 
     /**
