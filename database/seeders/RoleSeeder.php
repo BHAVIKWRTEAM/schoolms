@@ -19,3 +19,5 @@ class RoleSeeder extends Seeder
         Role::create(['name'=>'Student']);
     }
 }
+
+

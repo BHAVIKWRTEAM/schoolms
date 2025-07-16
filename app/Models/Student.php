@@ -22,6 +22,7 @@ class Student extends Model
     'state',
     'zip_code',
     'photo',
+    'user_id'
 ];
 
 public function classRoom(){

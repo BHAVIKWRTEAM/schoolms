@@ -92,9 +92,9 @@ class StudentController extends Controller
             $formFields['photo'] = $filename;
         }
 
-           // 3️⃣ Link the user_id
-           $formFields['user_id'] = $user->id;
-           
+        // 3️⃣ Link the user_id
+        $formFields['user_id'] = $user->id;
+
 
         Student::create($formFields);
         return redirect()->route('students.index')->with('success', 'Student Added Successfully');
@@ -149,5 +149,10 @@ class StudentController extends Controller
 
         $student->delete();
         return redirect()->route('students.index')->with('success', 'Student deleted Succesfully');
+    }
+
+    public function dashboard()
+    {
+        return view('dashboard.student');
     }
 }
