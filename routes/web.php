@@ -26,7 +26,7 @@ Route::get('/', function () {
 // bb
 Route::middleware(['auth','role:Admin'])->get('/admin/dashboard',[AdminController::class,'index'])->name('admin.dashboard');
 Route::middleware(['auth','role:Student'])->get('/student/dashboard',[StudentController::class,'dashboard'])->name('student.dashboard');
-Route::middleware(['auth','role:Teacher'])->get('/teacher/dashboard',[TeacherController::class,'index'])->name('teacher.dashboard');
+Route::middleware(['auth','role:Teacher'])->get('/teacher/dashboard',[TeacherController::class,'dashboard'])->name('teacher.dashboard');
 // auth = user must be logged in
 // role:Admin = user must have that role
 // Routes will be blocked if the user doesn't have that role
@@ -39,6 +39,8 @@ Route::resource('class-rooms',App\Http\Controllers\ClassRoomController::class);
 
 Route::middleware('auth','role:Admin')->group(function(){
 Route::resource('students',App\Http\Controllers\StudentController::class);
+Route::resource('teachers', App\Http\Controllers\TeacherController::class);
+
 });
 
 
