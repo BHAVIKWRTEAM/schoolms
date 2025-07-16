@@ -14,8 +14,7 @@ class ClassRoomController extends Controller
     {
         //show all classes
         $classRooms = ClassRoom::all(); //fetch all class records
-        return view('class_rooms.index',compact('classRooms'));
-
+        return view('class_rooms.index', compact('classRooms'));
     }
 
     /**
@@ -34,12 +33,22 @@ class ClassRoomController extends Controller
     {
         //
         $formFields = $request->validate([
-            'name'=>'required|string|max:30',
-            'section'=>'nullable|string|max:5'
+            'name' => 'required|string|max:30',
+            'section' => 'nullable|string|max:5',
+            'subjects' => 'nullable|array',
+            'subjects.*' => 'exists:subjects,id',
         ]);
 
-        ClassRoom::create($formFields);
-        return redirect()->route('class-rooms.index')->with('success','Class Added Successfully');
+        $classRoom = ClassRoom::create([
+            'name' => $formFields['name'],
+            'section' => $formFields['section'],
+        ]);
+
+        if (!empty($formFields['subjects'])) {
+            $classRoom->subjects()->attach($formFields['subjects']);
+        }
+
+        return redirect()->route('class-rooms.index')->with('success', 'Class Added Successfully');
     }
 
     /**
@@ -53,38 +62,41 @@ class ClassRoomController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(ClassRoom $classRoom)
     {
         //
-        $classRoom = ClassRoom::findorfail($id);
-        return view('class_rooms.edit',compact('classRoom'));
+        // $classRoom = ClassRoom::findorfail($id);
+        return view('class_rooms.edit', compact('classRoom'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ClassRoom $classRoom)
     {
         //
         $formFields = $request->validate([
-            'name'=>'required|string|max:30',
-            'section'=>'required|string|max:20'
-        ]);
+        'name' => 'required|string|max:100',
+        'section' => 'nullable|string|max:5',
+        'subjects' => 'nullable|array',
+        'subjects.*' => 'exists:subjects,id',
+    ]);
 
-        $classRoom = ClassRoom::findorfail($id);
+       
         $classRoom->update($formFields);
-        return redirect()->route('class-rooms.index')->with('success','Class updated');
 
+        $classRoom->subjects()->sync($request->subjects ?? []);
+
+        return redirect()->route('class-rooms.index')->with('success', 'Class updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(ClassRoom $classRoom)
     {
         //
-        $classRoom = ClassRoom::findorfail($id);
         $classRoom->delete();
-        return redirect()->route('class-rooms.index')->with('success','Class Deleted');
+        return redirect()->route('class-rooms.index')->with('success', 'Class Deleted');
     }
 }
