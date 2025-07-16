@@ -15,7 +15,7 @@
                 </div>
 
                 <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left text-gray-700 border border-gray-300">
+                    <table class="w-full text-sm text-left text-black border border-gray-300">
                         <thead class="bg-gray-100 text-xs uppercase text-gray-600">
                             <tr>
                                 <th class="px-4 py-2">#</th>
@@ -40,9 +40,11 @@
                                     <td class="px-4 py-2">{{ $teacher->first_name }} {{ $teacher->last_name }}</td>
                                     <td class="px-4 py-2">{{ $teacher->email }}</td>
                                     <td class="px-4 py-2">{{ $teacher->phone ?? '-' }}</td>
-                                    <td class="px-4 py-2">
+                                    <td class="px-8 py-2">
                                         <!-- Placeholder for now -->
-                                        <a href="#" class="text-blue-600 hover:underline">View</a>
+                                        <a href="{{ route('teachers.show',$teacher->id) }}" class="-ml-5 text-blue-600 hover:underline bg-blue-100 px-6 py-3 rounded-full">View</a>
+                                        <a href="{{ route('teachers.edit',$teacher->id) }}" class="text-blue-600 hover:underline bg-blue-100 px-6 py-3 rounded-full">Edit</a>
+                                        <a href="{{ route('teachers.destroy',$teacher->id) }}" class="text-blue-600 hover:underline bg-blue-100 px-6 py-3 rounded-full">Delete</a>
                                     </td>
                                 </tr>
                             @empty
