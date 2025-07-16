@@ -9,4 +9,8 @@ class ClassRoom extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'section']; //bb
+
+    public function subjects(){
+        return $this->belongsToMany(Subject::class,'class_room_subject');
+    }
 }

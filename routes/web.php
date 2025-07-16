@@ -40,6 +40,7 @@ Route::resource('class-rooms',App\Http\Controllers\ClassRoomController::class);
 Route::middleware('auth','role:Admin')->group(function(){
 Route::resource('students',App\Http\Controllers\StudentController::class);
 Route::resource('teachers', App\Http\Controllers\TeacherController::class);
+Route::resource('subjects', App\Http\Controllers\SubjectController::class);
 
 });
 
