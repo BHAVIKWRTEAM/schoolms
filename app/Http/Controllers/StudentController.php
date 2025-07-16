@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Student;
 use App\Models\ClassRoom;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
@@ -71,12 +74,27 @@ class StudentController extends Controller
 
         ]);
 
+        // 1️⃣ Create a user for this student
+        $password = 'Student@123';; // or use a default password
+        $user = User::create([
+            'name' => $formFields['first_name'] . ' ' . $formFields['last_name'],
+            'email' => $formFields['email'],
+            'password' => Hash::make($password),
+        ]);
+        $user->assignRole('Student');
+
+
+
         // handle image upload if provided
         if ($request->hasFile('photo')) {
             $filename = time() . '.' . $request->photo->extension();
             $request->photo->move(public_path('uploads/students'), $filename);
             $formFields['photo'] = $filename;
         }
+
+           // 3️⃣ Link the user_id
+           $formFields['user_id'] = $user->id;
+           
 
         Student::create($formFields);
         return redirect()->route('students.index')->with('success', 'Student Added Successfully');
