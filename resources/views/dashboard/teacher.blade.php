@@ -34,8 +34,11 @@
                 </div>
 
                 <div class="mt-6">
-                    <h4 class="font-semibold mb-2">Assigned Subjects</h4>
+                   <h4 class="font-semibold mb-2">
+                            Assigned Subjects ({{ $teacher->subjects->count() }})
+                        </h4>
                     @if ($teacher->subjects->count())
+                        
                         <ul class="list-disc list-inside text-gray-700">
                             @foreach ($teacher->subjects as $subject)
                                 <li>{{ $subject->name }}</li>

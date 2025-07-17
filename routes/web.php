@@ -50,6 +50,9 @@ Route::resource('subjects', App\Http\Controllers\SubjectController::class);
 
 
 
+// Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+// Route::get('/teacher/dashboard', [DashboardController::class, 'index'])->name('teacher.dashboard');
+// Route::get('/student/dashboard', [DashboardController::class, 'index'])->name('student.dashboard');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

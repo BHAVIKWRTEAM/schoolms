@@ -1,3 +1,23 @@
+@php
+    if (auth()->check()) {
+        if (auth()->user()->hasRole('Admin')) {
+            $dashboardRoute = route('admin.dashboard');
+        } elseif (auth()->user()->hasRole('Teacher')) {
+            $dashboardRoute = route('teacher.dashboard');
+        } elseif (auth()->user()->hasRole('Student')) {
+            $dashboardRoute = route('student.dashboard');
+        } else {
+            $dashboardRoute = '#';
+        }
+    } else {
+        $dashboardRoute = route('login'); // or route('welcome') or '#'
+    }
+@endphp
+
+
+
+
+
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -5,17 +25,22 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    {{-- <a href="{{ route('dashboard') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                    </a>
+                    </a> --}}
+
+                    <a href="{{ $dashboardRoute }}">
+                        <h3>Home</h3>
+</a>
+                    
                 </div>
 
-                <!-- Navigation Links -->
+                {{-- <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                </div>
+                </div> --}}
             </div>
 
             <!-- Settings Dropdown -->

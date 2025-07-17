@@ -15,6 +15,7 @@
 
 @php
     $student = \App\Models\Student::where('user_id', Auth::id())->first();
+
     // $user->getRoleNames(); 
 @endphp
 <x-app-layout>

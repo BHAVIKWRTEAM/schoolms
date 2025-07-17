@@ -44,4 +44,31 @@
             </x-primary-button>
         </div>
     </form>
+
+    <div class="mt-6">
+    <p class="text-sm text-gray-700 mb-2">Quick Login as:</p>
+    <div class="flex space-x-2">
+        <button type="button" onclick="fillCredentials('admin')" class="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600">Admin</button>
+        <button type="button" onclick="fillCredentials('student')" class="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600">Student</button>
+        <button type="button" onclick="fillCredentials('teacher')" class="bg-yellow-500 text-white px-4 py-1 rounded hover:bg-yellow-600">Teacher</button>
+    </div>
+</div>
+<script>
+    function fillCredentials(role) {
+        let emailField = document.getElementById('email');
+        let passwordField = document.getElementById('password');
+
+        if (role === 'admin') {
+            emailField.value = 'bhavik.bhuva@gmail.com';
+            passwordField.value = '123456';
+        } else if (role === 'student') {
+            emailField.value = 'darshan@gmail.com';
+            passwordField.value = 'Student@123';
+        } else if (role === 'teacher') {
+            emailField.value = 'khansir@gmail.com';
+            passwordField.value = 'Teacher@123';
+        }
+    }
+</script>
+
 </x-guest-layout>

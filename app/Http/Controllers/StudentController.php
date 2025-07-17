@@ -153,6 +153,7 @@ class StudentController extends Controller
 
     public function dashboard()
     {
-        return view('dashboard.student');
+        $student = Student::where('user_id', auth()->id())->first();
+        return view('dashboard.student', compact('student'));
     }
 }

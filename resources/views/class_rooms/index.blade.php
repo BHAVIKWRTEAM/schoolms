@@ -27,6 +27,8 @@
 </body>
 
 </html> --}}
+<x-app-layout>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -130,7 +132,7 @@
 </html>
 
                 </div>
-            @endif
+            
         </div>
 
         @if ($classRooms instanceof \Illuminate\Pagination\LengthAwarePaginator && $classRooms->hasPages())
@@ -155,8 +157,7 @@
                     from { opacity: 0; transform: translateY(10px); }
                     to { opacity: 1; transform: translateY(0); }
                 </div>
-            @endif
-        </div>
+     
 
         @if ($classRooms instanceof \Illuminate\Pagination\LengthAwarePaginator && $classRooms->hasPages())
             <div class="mt-6">
@@ -180,19 +181,14 @@
                     from { opacity: 0; transform: translateY(10px); }
                     to { opacity: 1; transform: translateY(0); }
                 }
-            `;
-            document.head.appendChild(style);
+            
         });
     </script>
 </body>
 
 </html>
-
-                }
-            `;
-            document.head.appendChild(style);
-        });
     </script>
 </body>
 
 </html>
+</x-app-layout>

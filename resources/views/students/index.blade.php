@@ -1,4 +1,5 @@
 @vite('resources/css/app.css')
+<x-app-layout>
 
 @if (session('success'))
     <div class="mb-4 text-green-700 bg-green-100 border border-green-300 px-4 py-2 rounded">
@@ -15,6 +16,8 @@
             Search
         </button>
     </div>
+
+   
 </form>
 
 
@@ -39,7 +42,12 @@
                 <th class="px-4 py-3 text-left">Email</th>
                 <th class="px-4 py-3 text-left">Class</th>
                 <th class="px-4 py-3 text-left">Roll No</th>
-                <th class="px-4 py-3 text-left">Actions</th>
+                <th class="px-4 py-3 text-left">Actions <a href="{{ route('students.create') }}"
+                        class="ml-10 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Add New Student</a></th>
+                <th class="px-4 py-3 text-left">
+                    
+                </th>
+                 
             </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
@@ -123,3 +131,4 @@
         {{ $students->links() }}
     </div>
 </div>
+</x-app-layout>
