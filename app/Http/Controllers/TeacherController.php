@@ -87,4 +87,40 @@ class TeacherController extends Controller
         $subjects = Subject::all();
         return view('teachers.edit', compact('teacher', 'subjects'));
     }
+
+    public function update(Request $request,Teacher $teacher){
+        $formFields = $request->validate([
+            'first_name' => 'required|string|max:50',
+            'last_name' => 'required|string|max:50',
+            'phone' => 'nullable|string|max:20',
+            'gender' => 'nullable|in:Male,Female,Other',
+            'dob' => 'nullable|date',
+            'qualification' => 'nullable|string|max:100',
+            'experience' => 'nullable|string|max:100',
+            'bio' => 'nullable|string|max:500',
+            'address' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:100',
+            'state' => 'nullable|string|max:100',
+            'zip_code' => 'nullable|string|max:20',
+            'photo' => 'nullable|image|max:2048', // 2MB max
+
+
+            'subjects' => 'nullable|array',
+            'subjects.*' => 'exists:subjects,id',
+        ]);
+
+        if ($request->hasFile('photo')) {
+            $filename = time() . '.' . $request->photo->extension();
+            $request->photo->move(public_path('uploads/teachers'), $filename);
+            $formFields['photo'] = $filename;
+        }
+
+             // Always sync subjects
+            $teacher->subjects()->sync($formFields['subjects']?? []);
+        
+
+        $teacher->update($formFields);
+        return redirect()->route('teachers.index')->with('success','Details updated successfully');
+    }
+
 }
