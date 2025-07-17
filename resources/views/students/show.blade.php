@@ -153,7 +153,7 @@
                         </svg>
                         Back to Students
                     </a>
-                    
+                      @role('Admin')
                     <div class="flex space-x-2">
                         <a href="{{ route('students.edit', $student->id) }}"
                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
@@ -176,6 +176,7 @@
                             </button>
                         </form>
                     </div>
+                    @endrole
                 </div>
             </div>
         </div>

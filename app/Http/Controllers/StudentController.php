@@ -133,7 +133,12 @@ class StudentController extends Controller
             'photo' => 'nullable|image|max:2048', // max 2MB
         ]);
 
-
+          // handle image upload if provided
+        if ($request->hasFile('photo')) {
+            $filename = time() . '.' . $request->photo->extension();
+            $request->photo->move(public_path('uploads/students'), $filename);
+            $formFields['photo'] = $filename;
+        }
 
         $student->update($formFields);
         return redirect()->route('students.index')->with('success', 'Student updated successfully');

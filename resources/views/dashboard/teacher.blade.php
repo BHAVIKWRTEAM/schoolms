@@ -48,6 +48,11 @@
                         <p class="text-gray-500">No subjects assigned</p>
                     @endif
                 </div>
+                <div class="mt-6">
+<a href="{{ route('students.index') }}"
+                            class=" px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">See Students</a>
+                </div>
+                
 
             </div>
         </div>

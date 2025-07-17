@@ -35,16 +35,19 @@ Route::middleware(['auth','role:Teacher'])->get('/dashboard/teacher',[DashboardC
 Route::get('/redirect-after-login',[LoginRedirectController::class,'redirect'])->middleware('auth')->name('login.redirect');
 
 
-
-
+// ✅ Accessible to both Admins and Teachers (via permission)
+Route::middleware(['auth', 'can:view student list'])->group(function () {
+    Route::get('/students', [StudentController::class, 'index'])->name('students.index');
+   
+});
 Route::middleware('auth','role:Admin')->group(function(){
-Route::resource('students',App\Http\Controllers\StudentController::class);
+Route::resource('students',App\Http\Controllers\StudentController::class)->except('index','show');
 Route::resource('teachers', App\Http\Controllers\TeacherController::class);
 Route::resource('subjects', App\Http\Controllers\SubjectController::class);
 Route::resource('class-rooms',App\Http\Controllers\ClassRoomController::class);
-
-
 });
+
+ Route::get('/students/{student}', [StudentController::class, 'show'])->name('students.show')->middleware('auth','can:view student list');
 
 
 // Route::get('/admin/dashboard',[AdminController::class,'index'])->middleware('auth')->name('admin.dashboard');
@@ -66,3 +69,4 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
