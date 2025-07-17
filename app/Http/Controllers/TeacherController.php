@@ -18,7 +18,7 @@ class TeacherController extends Controller
 
     public function index()
     {
-        $teachers = \App\Models\Teacher::latest()->get();
+        $teachers = Teacher::with('subjects')->get();
         return view('teachers.index', compact('teachers'));
     }
 

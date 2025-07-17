@@ -11,7 +11,8 @@
 
                 <div class="flex justify-between mb-4">
                     <p class="text-gray-600">List of all teachers.</p>
-                    <a href="{{ route('teachers.create') }}" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Add New Teacher</a>
+                    <a href="{{ route('teachers.create') }}"
+                        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Add New Teacher</a>
                 </div>
 
                 <div class="overflow-x-auto">
@@ -21,6 +22,7 @@
                                 <th class="px-4 py-2">#</th>
                                 <th class="px-4 py-2">Photo</th>
                                 <th class="px-4 py-2">Name</th>
+                                <th class="px-4 py-2">Subjects</th>
                                 <th class="px-4 py-2">Email</th>
                                 <th class="px-4 py-2">Phone</th>
                                 <th class="px-4 py-2">Actions</th>
@@ -31,25 +33,38 @@
                                 <tr class="border-t">
                                     <td class="px-4 py-2">{{ $loop->iteration }}</td>
                                     <td class="px-4 py-2">
-                                        @if($teacher->photo)
-                                            <img src="{{ asset('uploads/teachers/' . $teacher->photo) }}" alt="Photo" class="h-10 w-10 rounded-full object-cover">
+                                        @if ($teacher->photo)
+                                            <img src="{{ asset('uploads/teachers/' . $teacher->photo) }}" alt="Photo"
+                                                class="h-10 w-10 rounded-full object-cover">
                                         @else
                                             <span class="text-gray-400 italic">No photo</span>
                                         @endif
                                     </td>
                                     <td class="px-4 py-2">{{ $teacher->first_name }} {{ $teacher->last_name }}</td>
+                                    <td class="px-4 py-2">
+                                        @if ($teacher->subjects->isNotEmpty())
+                                            {{ $teacher->subjects->pluck('name')->join(', ') }}
+                                        @else
+                                            <span class="text-gray-400 italic">No subjects</span>
+                                        @endif
+                                    </td>
+
                                     <td class="px-4 py-2">{{ $teacher->email }}</td>
                                     <td class="px-4 py-2">{{ $teacher->phone ?? '-' }}</td>
                                     <td class="px-8 py-2">
                                         <!-- Placeholder for now -->
-                                        <a href="{{ route('teachers.show',$teacher->id) }}" class="-ml-5 text-blue-600 hover:underline bg-blue-100 px-6 py-3 rounded-full">View</a>
-                                        <a href="{{ route('teachers.edit',$teacher->id) }}" class="text-blue-600 hover:underline bg-blue-100 px-6 py-3 rounded-full">Edit</a>
-                                        <a href="{{ route('teachers.destroy',$teacher->id) }}" class="text-blue-600 hover:underline bg-blue-100 px-6 py-3 rounded-full">Delete</a>
+                                        <a href="{{ route('teachers.show', $teacher->id) }}"
+                                            class="-ml-5 text-blue-600 hover:underline bg-blue-100 px-6 py-3 rounded-full">View</a>
+                                        <a href="{{ route('teachers.edit', $teacher->id) }}"
+                                            class="text-blue-600 hover:underline bg-blue-100 px-6 py-3 rounded-full">Edit</a>
+                                        <a href="{{ route('teachers.destroy', $teacher->id) }}"
+                                            class="text-blue-600 hover:underline bg-blue-100 px-6 py-3 rounded-full">Delete</a>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="6" class="px-4 py-2 text-center text-gray-500">No teachers found.</td>
+                                    <td colspan="6" class="px-4 py-2 text-center text-gray-500">No teachers found.
+                                    </td>
                                 </tr>
                             @endforelse
                         </tbody>
