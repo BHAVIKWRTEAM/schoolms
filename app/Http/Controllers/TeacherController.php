@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Subject;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -23,7 +24,8 @@ class TeacherController extends Controller
 
     public function create()
     {
-        return view('teachers.create');
+        $subjects = Subject::all();
+        return view('teachers.create', compact('subjects'));
     }
 
     public function store(Request $request)
@@ -43,36 +45,46 @@ class TeacherController extends Controller
             'state' => 'nullable|string|max:100',
             'zip_code' => 'nullable|string|max:20',
             'photo' => 'nullable|image|max:2048', // 2MB max
+
+
+            'subjects' => 'nullable|array',
+            'subjects.*' => 'exists:subjects,id',
         ]);
-    // 1️⃣ Create login user for teacher
+        // 1️⃣ Create login user for teacher
 
         $user = User::create([
-        'name' => $formFields['first_name'] . ' ' . $formFields['last_name'],
-        'email' => $formFields['email'],
-        'password' => Hash::make('Teacher@123'),
+            'name' => $formFields['first_name'] . ' ' . $formFields['last_name'],
+            'email' => $formFields['email'],
+            'password' => Hash::make('Teacher@123'),
         ]);
 
         $user->assignRole('Teacher');
 
-         // 2️⃣ Handle image upload
-    if ($request->hasFile('photo')) {
-        $filename = time() . '.' . $request->photo->extension();
-        $request->photo->move(public_path('uploads/teachers'), $filename);
-        $formFields['photo'] = $filename;
-    }
+        // 2️⃣ Handle image upload
+        if ($request->hasFile('photo')) {
+            $filename = time() . '.' . $request->photo->extension();
+            $request->photo->move(public_path('uploads/teachers'), $filename);
+            $formFields['photo'] = $filename;
+        }
 
         // 3️⃣ Link teacher to user
-    $formFields['user_id'] = $user->id;
+        $formFields['user_id'] = $user->id;
 
-    // 4️⃣ Save teacher
-    Teacher::create($formFields);
+        // 4️⃣ Save teacher
+        $teacher = Teacher::create($formFields);
 
-     return redirect()->route('teachers.index')->with('success', 'Teacher added successfully');
-
-
-
-
+        if (!empty($formFields['subjects'])) {
+            $teacher->subjects()->attach($formFields['subjects']);
+        }
 
 
+        return redirect()->route('teachers.index')->with('success', 'Teacher added successfully');
+    }
+
+    public function edit($id)
+    {
+        $teacher = Teacher::findorfail($id);
+        $subjects = Subject::all();
+        return view('teachers.edit', compact('teacher', 'subjects'));
     }
 }

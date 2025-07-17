@@ -154,6 +154,20 @@
                         @enderror
                     </div>
 
+                    <div class="mb-4">
+                        <label for="subjects" class="block text-sm font-medium text-gray-700 mb-1">Assign
+                            Subjects</label>
+                        <select name="subjects[]" id="subjects" multiple
+                            class="w-full border-gray-300 rounded-md shadow-sm">
+                            @foreach ($subjects as $subject)
+                                <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                            @endforeach
+                        </select>
+                        <small class="text-gray-500">Hold Ctrl (Windows) or Cmd (Mac) to select multiple
+                            subjects.</small>
+                    </div>
+
+
 
 
                     <div class="mt-6">

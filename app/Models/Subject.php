@@ -18,4 +18,8 @@ class Subject extends Model
         return $this->belongsToMany(ClassRoom::class,'class_room_subject');
     }
 
+    public function teacher(){
+        return $this->belongsToMany(Teacher::class,'subject_teacher');
+    }
+
 }
