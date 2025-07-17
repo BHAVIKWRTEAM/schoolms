@@ -34,7 +34,6 @@ Route::middleware(['auth','role:Teacher'])->get('/dashboard/teacher',[DashboardC
 
 Route::get('/redirect-after-login',[LoginRedirectController::class,'redirect'])->middleware('auth')->name('login.redirect');
 
-Route::resource('class-rooms',App\Http\Controllers\ClassRoomController::class);
 
 
 
@@ -42,6 +41,8 @@ Route::middleware('auth','role:Admin')->group(function(){
 Route::resource('students',App\Http\Controllers\StudentController::class);
 Route::resource('teachers', App\Http\Controllers\TeacherController::class);
 Route::resource('subjects', App\Http\Controllers\SubjectController::class);
+Route::resource('class-rooms',App\Http\Controllers\ClassRoomController::class);
+
 
 });
 
