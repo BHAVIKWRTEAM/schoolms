@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginRedirectController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +27,7 @@ Route::get('/', function () {
 // bb
 Route::middleware(['auth','role:Admin'])->get('/admin/dashboard',[AdminController::class,'index'])->name('admin.dashboard');
 Route::middleware(['auth','role:Student'])->get('/student/dashboard',[StudentController::class,'dashboard'])->name('student.dashboard');
-Route::middleware(['auth','role:Teacher'])->get('/teacher/dashboard',[TeacherController::class,'dashboard'])->name('teacher.dashboard');
+Route::middleware(['auth','role:Teacher'])->get('/dashboard/teacher',[DashboardController::class,'teacherDashboard'])->name('teacher.dashboard');
 // auth = user must be logged in
 // role:Admin = user must have that role
 // Routes will be blocked if the user doesn't have that role

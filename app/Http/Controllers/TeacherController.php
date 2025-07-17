@@ -123,4 +123,16 @@ class TeacherController extends Controller
         return redirect()->route('teachers.index')->with('success','Details updated successfully');
     }
 
+    public function show(Teacher $teacher){
+        $teacher->load('subjects');
+        return view('teachers.show',compact('teacher'));
+    }
+
+    public function destroy(Teacher $teacher){
+        $teacher->delete();
+        return redirect()->route('teachers.index')->with('success','Teacher deleted successfully');
+    }
+
+
+
 }

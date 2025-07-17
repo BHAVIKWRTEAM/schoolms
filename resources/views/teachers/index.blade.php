@@ -54,11 +54,22 @@
                                     <td class="px-8 py-2">
                                         <!-- Placeholder for now -->
                                         <a href="{{ route('teachers.show', $teacher->id) }}"
-                                            class="-ml-5 text-blue-600 hover:underline bg-blue-100 px-6 py-3 rounded-full">View</a>
+                                            class="-ml-5 text-green-600 hover:underline bg-green-100 px-6 py-3 rounded-full">View</a>
                                         <a href="{{ route('teachers.edit', $teacher->id) }}"
                                             class="text-blue-600 hover:underline bg-blue-100 px-6 py-3 rounded-full">Edit</a>
-                                        <a href="{{ route('teachers.destroy', $teacher->id) }}"
-                                            class="text-blue-600 hover:underline bg-blue-100 px-6 py-3 rounded-full">Delete</a>
+
+                                        <!-- Delete Teacher -->
+                                        <form action="{{ route('teachers.destroy', $teacher->id) }}" class="inline"
+                                            method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                onclick="return confirm('Are you sure you want to delete {{ $teacher->first_name }} {{ $teacher->last_name }} from Teachers?')"
+                                                class="text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded-full">
+                                                Delete
+                                            </button>
+                                        </form>
+
                                     </td>
                                 </tr>
                             @empty
